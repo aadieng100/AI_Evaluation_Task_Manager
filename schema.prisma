@@ -1,0 +1,74 @@
+// PostgreSQL Database Schema for AI Evaluation Task Manager
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  ADMIN
+  EVALUATOR
+}
+
+enum TaskStatus {
+  PENDING
+  ASSIGNED
+  IN_REVIEW
+  COMPLETED
+}
+
+enum PreferredOutput {
+  OUTPUT_A
+  OUTPUT_B
+  EQUAL
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String
+  role      Role     @default(EVALUATOR)
+  createdAt DateTime @default(now())
+
+  tasks       EvaluationTask[] @relation("AssignedTasks")
+  evaluations EvaluationResult[]
+}
+
+model EvaluationTask {
+  id           String     @id @default(uuid())
+  title        String
+  prompt       String
+  modelA       String
+  modelB       String
+  modelAName   String     @default("Model A")
+  modelBName   String     @default("Model B")
+  status       TaskStatus @default(PENDING)
+  priority     Int        @default(1)
+  
+  assigneeId   String?
+  assignee     User?      @relation("AssignedTasks", fields: [assigneeId], references: [id])
+  
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  evaluations  EvaluationResult[]
+}
+
+model EvaluationResult {
+  id              String          @id @default(uuid())
+  taskId          String
+  task            EvaluationTask  @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  
+  evaluatorId     String
+  evaluator       User            @relation(fields: [evaluatorId], references: [id])
+  
+  preferredOutput PreferredOutput
+  rating          Int             // 1 to 5 scale
+  feedback        String
+  metrics         Json?           // Flexible JSONB column for multi-criteria metrics (e.g. latency, safety, conciseness)
+  
+  createdAt       DateTime        @default(now())
+}

@@ -1,0 +1,29 @@
+# Protected documentation files (local interview prep notes)
+decisions_architecturales.md
+recruiter_defense.md
+
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build outputs
+dist/
+build/
+.next/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.backup
+.terraform.lock.hcl
+
+# OS & IDE artifacts
+.DS_Store
+*.log
+.vscode/
+.idea/

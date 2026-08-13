@@ -1,7 +1,7 @@
 # AI Evaluation Task Manager
 
 > **Internal Platforms Engineering Benchmark Application**  
-> Built as a demonstration project for the **Software Engineer, Internal Platforms** role at **micro1**.
+> Built as a high-performance platform for AI model output evaluation and benchmarking.
 
 ---
 

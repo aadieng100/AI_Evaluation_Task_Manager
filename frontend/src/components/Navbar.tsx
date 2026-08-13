@@ -19,7 +19,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCreateModal }) => {
             <div className="flex items-center gap-2">
               <h1 className="text-lg font-bold text-white tracking-tight">AI Evaluation Task Manager</h1>
               <span className="px-2 py-0.5 text-[10px] font-semibold tracking-wide uppercase rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
-                micro1 Platforms
+                Internal Platform
               </span>
             </div>
             <p className="text-xs text-slate-400">Internal AI Trainer & Model Output Benchmarking Suite</p>

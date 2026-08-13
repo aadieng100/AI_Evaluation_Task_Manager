@@ -181,7 +181,7 @@ export const App: React.FC = () => {
 
       {/* Footer */}
       <footer className="border-t border-slate-900 py-6 px-6 text-center text-xs text-slate-400">
-        AI Evaluation Task Manager &bull; Built for micro1 Platform Engineering
+        AI Evaluation Task Manager &bull; Internal Platform Engineering
       </footer>
 
     </div>

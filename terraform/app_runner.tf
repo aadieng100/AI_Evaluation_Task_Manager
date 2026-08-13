@@ -25,7 +25,6 @@ resource "aws_apprunner_service" "backend" {
 
     code_repository {
       repository_url = "https://github.com/aadieng100/AI_Evaluation_Task_Manager"
-      target_directory = "backend"
 
       source_code_version {
         type  = "BRANCH"
@@ -36,8 +35,8 @@ resource "aws_apprunner_service" "backend" {
         configuration_source = "API"
 
         code_configuration_values {
-          build_command = "npm install && npx prisma generate && npm run build"
-          start_command = "npm run start:prod"
+          build_command = "cd backend && npm install && npx prisma generate && npm run build"
+          start_command = "cd backend && npm run start:prod"
           port          = "3000"
           runtime       = "NODEJS_18"
 

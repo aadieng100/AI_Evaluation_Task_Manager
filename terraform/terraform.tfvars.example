@@ -1,0 +1,6 @@
+aws_region   = "us-east-1"
+environment  = "production"
+project_name = "ai-evaluation-task-manager"
+db_name      = "ai_evaluation_db"
+db_username  = "postgres"
+db_password  = "SuperSecurePassword123!"

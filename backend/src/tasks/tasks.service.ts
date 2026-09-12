@@ -2,14 +2,14 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { AssignTaskDto } from './dto/assign-task.dto';
-import { TaskStatus } from '@prisma/client';
+import { Prisma, TaskStatus } from '@prisma/client';
 
 @Injectable()
 export class TasksService {
   constructor(private readonly prisma: PrismaService) {}
 
   async findAll(status?: TaskStatus, assigneeId?: string) {
-    const where: any = {};
+    const where: Prisma.EvaluationTaskWhereInput = {};
     if (status) where.status = status;
     if (assigneeId) where.assigneeId = assigneeId;
 

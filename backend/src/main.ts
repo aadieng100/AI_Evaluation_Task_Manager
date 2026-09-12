@@ -15,9 +15,13 @@ async function bootstrap() {
     }),
   );
 
-  // Enable CORS for frontend dashboard access
+  // Enable CORS for frontend dashboard access (restricted by environment in production)
+  const allowedOrigins = process.env.FRONTEND_URL
+    ? [process.env.FRONTEND_URL, 'http://localhost:5173']
+    : true;
+
   app.enableCors({
-    origin: true,
+    origin: allowedOrigins,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
   });

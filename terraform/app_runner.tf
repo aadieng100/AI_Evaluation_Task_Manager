@@ -23,6 +23,10 @@ resource "aws_apprunner_service" "backend" {
   source_configuration {
     auto_deployments_enabled = false
 
+    authentication_configuration {
+      access_role_arn = aws_iam_role.app_runner_role.arn
+    }
+
     code_repository {
       repository_url = "https://github.com/aadieng100/AI_Evaluation_Task_Manager"
 

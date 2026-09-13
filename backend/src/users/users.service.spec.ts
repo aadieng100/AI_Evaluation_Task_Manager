@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ConflictException } from '@nestjs/common';
+import { ConflictException, NotFoundException } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { Role } from '@prisma/client';
@@ -60,6 +60,15 @@ describe('UsersService', () => {
       expect(result).toEqual(mockUser);
       expect(prisma.user.findUnique).toHaveBeenCalledWith({
         where: { id: 'user-1' },
+        include: { tasks: true, evaluations: true },
+      });
+    });
+
+    it('should throw NotFoundException if user is not found', async () => {
+      mockPrismaService.user.findUnique.mockResolvedValue(null);
+      await expect(service.findOne('non-existent-user')).rejects.toThrow(NotFoundException);
+      expect(prisma.user.findUnique).toHaveBeenCalledWith({
+        where: { id: 'non-existent-user' },
         include: { tasks: true, evaluations: true },
       });
     });

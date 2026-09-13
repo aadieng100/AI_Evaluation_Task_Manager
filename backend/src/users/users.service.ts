@@ -1,4 +1,4 @@
-import { Injectable, ConflictException } from '@nestjs/common';
+import { Injectable, ConflictException, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
 
@@ -18,13 +18,19 @@ export class UsersService {
   }
 
   async findOne(id: string) {
-    return this.prisma.user.findUnique({
+    const user = await this.prisma.user.findUnique({
       where: { id },
       include: {
         tasks: true,
         evaluations: true,
       },
     });
+
+    if (!user) {
+      throw new NotFoundException(`User with ID "${id}" not found.`);
+    }
+
+    return user;
   }
 
   async create(dto: CreateUserDto) {

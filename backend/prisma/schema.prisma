@@ -16,7 +16,7 @@ enum Role {
 enum TaskStatus {
   PENDING
   ASSIGNED
-  IN_REVIEW
+  IN_REVIEW // Reserved for multi-stage peer-review workflow
   COMPLETED
 }
 

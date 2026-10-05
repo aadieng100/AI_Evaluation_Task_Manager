@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint-and-validate:
+    name: Lint & Validation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Validate Backend TypeScript & Build
+        run: |
+          cd backend
+          npm ci --ignore-scripts || npm install
+          npx prisma generate
+          npm run build
+
+      - name: Validate Frontend TypeScript & Build
+        run: |
+          cd frontend
+          npm ci --ignore-scripts || npm install
+          npm run build
